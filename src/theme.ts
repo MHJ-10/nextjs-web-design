@@ -1,26 +1,56 @@
-'use client';
-import { Roboto } from 'next/font/google';
-import { createTheme } from '@mui/material/styles';
+"use client";
+import { createTheme } from "@mui/material/styles";
+import localFont from "next/font/local";
 
-const roboto = Roboto({
-  weight: ['300', '400', '500', '700'],
-  subsets: ['latin'],
-  display: 'swap',
+const alibabaFont = localFont({
+  src: [
+    {
+      path: "../public/fonts/Alibaba-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Alibaba-Black.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Alibaba-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Alibaba-Light.ttf",
+      weight: "200",
+      style: "normal",
+    },
+  ],
 });
 
 const theme = createTheme({
+  direction: "rtl",
   palette: {
-    mode: 'light',
+    primary: {
+      main: "#fdb813",
+    },
+    secondary: {
+      main: "#f7941d",
+    },
+    text: {
+      primary: "#4e5254",
+      secondary: "#000000",
+    },
   },
   typography: {
-    fontFamily: roboto.style.fontFamily,
+    fontFamily: alibabaFont.style.fontFamily,
   },
+
   components: {
     MuiAlert: {
       styleOverrides: {
         root: ({ ownerState }) => ({
-          ...(ownerState.severity === 'info' && {
-            backgroundColor: '#60a5fa',
+          ...(ownerState.severity === "info" && {
+            backgroundColor: "#60a5fa",
           }),
         }),
       },
