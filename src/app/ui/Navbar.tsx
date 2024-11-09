@@ -4,6 +4,7 @@ import {
   ExpandMore,
   HelpOutline,
   LuggageOutlined,
+  Menu as MenuIcon,
   PersonOutline,
 } from "@mui/icons-material";
 import {
@@ -11,6 +12,7 @@ import {
   Box,
   Button,
   Container,
+  IconButton,
   Menu,
   MenuItem,
   Toolbar,
@@ -21,7 +23,6 @@ import { ReactElement, useState } from "react";
 interface LinkButton {
   text: string;
   icon: ReactElement<any, any>;
-  href: string;
 }
 
 interface NavbarItem {
@@ -30,6 +31,21 @@ interface NavbarItem {
   hasChild: boolean;
   children?: string[];
 }
+
+const settings: LinkButton[] = [
+  {
+    text: "مرکز پشتیبانی آنلاین",
+    icon: <HelpOutline sx={{ ml: 1 }} />,
+  },
+  {
+    text: "سفر های من",
+    icon: <LuggageOutlined sx={{ ml: 1 }} />,
+  },
+  {
+    text: "ورود یا ثبت نام",
+    icon: <PersonOutline sx={{ ml: 1 }} />,
+  },
+];
 
 const Navbar = () => {
   return (
@@ -41,49 +57,22 @@ const Navbar = () => {
       sx={{ py: 0.5 }}
     >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
           <Image
             src="/images/logo.svg"
             width={160}
             height={50}
             alt="alibaba logo"
           />
-          <Box
-            sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, mr: 10 }}
-          >
+          <Box sx={{ display: { xs: "none", lg: "flex" } }}>
             <NavbarLinks />
           </Box>
-          <Box sx={{ flexGrow: 0, display: { xs: "none", sm: "flex" } }}>
+          <Box sx={{ display: { xs: "none", sm: "flex" } }}>
             <NavbarButtons />
           </Box>
-          {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              //   onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              //   open={Boolean(anchorElNav)}
-              //   onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
-              open={false}
-            ></Menu>
-          </Box> */}
+          <Box sx={{ display: { xs: "flex", sm: "none" } }}>
+            <SideMenu />
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
@@ -132,11 +121,11 @@ const NavbarLinks = () => {
   return pages.map((page, index) => (
     <Box>
       <Button
-        id={`${page.text}-button`}
-        aria-controls={openIndex === index ? `${page.text}-menu` : undefined}
-        aria-haspopup="true"
-        aria-expanded={openIndex === index ? "true" : undefined}
-        sx={{ mx: 1, color: "text.primary", fontSize: 20, fontWeight: "400" }}
+        sx={{
+          color: "text.primary",
+          fontSize: { md: 15, lg: 17 },
+          fontWeight: "400",
+        }}
         onClick={(e) => handleClick(e, index)}
         endIcon={page.hasChild && <ExpandMore sx={{ mr: 1 }} />}
       >
@@ -172,36 +161,66 @@ const NavbarLinks = () => {
   ));
 };
 
-const NavbarButtons = () => {
-  const settings: LinkButton[] = [
-    {
-      text: "مرکز پشتیبانی آنلاین",
-      icon: <HelpOutline sx={{ ml: 1 }} />,
-      href: "1",
-    },
-    {
-      text: "سفر های من",
-      icon: <LuggageOutlined sx={{ ml: 1 }} />,
-      href: "2",
-    },
-    {
-      text: "ورود یا ثبت نام",
-      icon: <PersonOutline sx={{ ml: 1 }} />,
-      href: "3",
-    },
-  ];
-
-  return settings.map((setting) => (
-    <Button
-      sx={{
-        mr: 3,
-        fontSize: 18,
-        fontWeight: "400",
-        color: "text.primary",
-      }}
-      startIcon={setting.icon}
-    >
-      {setting.text}
-    </Button>
+const NavbarButtons = () =>
+  settings.map((setting) => (
+    <MenuItem>
+      <Button
+        sx={{
+          fontSize: { sm: 12, md: 15, lg: 17 },
+          fontWeight: "400",
+          color: "text.primary",
+        }}
+        startIcon={setting.icon}
+      >
+        {setting.text}
+      </Button>
+    </MenuItem>
   ));
+
+const SideMenu = () => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  return (
+    <>
+      <IconButton
+        size="large"
+        color="inherit"
+        onClick={(e) => setAnchorEl(e.currentTarget)}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        open={Boolean(anchorEl)}
+        onClose={() => setAnchorEl(null)}
+        sx={{ display: { xs: "block", md: "none" } }}
+      >
+        {settings.map((setting) => (
+          <MenuItem>
+            <Button
+              sx={{
+                mr: 3,
+                fontSize: { md: 15, lg: 17 },
+                fontWeight: "400",
+                color: "text.primary",
+              }}
+              startIcon={setting.icon}
+            >
+              {setting.text}
+            </Button>
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
+  );
 };
