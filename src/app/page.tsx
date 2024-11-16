@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import Image from "next/image";
 import TravelCard from "./ui/TravelCard";
 import OtherServices from "./ui/OtherServices";
+import Carousel from "./ui/Carousel";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       />
       <TravelCard />
       <OtherServices />
+      <Carousel />
     </Container>
   );
 }
