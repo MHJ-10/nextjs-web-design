@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { ReactElement, useState } from "react";
+import { useTravelTab } from "../context/TravelTabContext";
 
 interface LinkButton {
   text: string;
@@ -84,6 +85,7 @@ export default Navbar;
 const NavbarLinks = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openIndex, setOpenIndex] = useState<null | number>(null);
+  const { handleChangeTab } = useTravelTab();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>, index: number) => {
     setAnchorEl(event.currentTarget);
@@ -126,7 +128,12 @@ const NavbarLinks = () => {
           fontSize: { md: 15, lg: 17 },
           fontWeight: "400",
         }}
-        onClick={(e) => handleClick(e, index)}
+        onClick={(e) => {
+          handleClick(e, index);
+          if (!page.hasChild) {
+            handleChangeTab(page.text);
+          }
+        }}
         endIcon={page.hasChild && <ExpandMore sx={{ mr: 1 }} />}
       >
         {page.text}
@@ -151,6 +158,10 @@ const NavbarLinks = () => {
             <MenuItem
               divider={i === page.children?.length! - 1 ? false : true}
               sx={{ justifyContent: "flex-end", mx: 2, p: 2 }}
+              onClick={() => {
+                handleChangeTab(child);
+                handleCloseMenu();
+              }}
             >
               {child}
             </MenuItem>

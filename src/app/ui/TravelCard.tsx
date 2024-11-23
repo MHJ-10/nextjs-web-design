@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, Divider, Tab, Tabs, Typography } from "@mui/material";
-import { useState } from "react";
+import { useTravelTab } from "../context/TravelTabContext";
 import {
   Accommodation,
   Bus,
@@ -13,7 +13,7 @@ import {
 } from "./SVGIcons";
 
 const TravelCard = () => {
-  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const { tab, handleChangeTab } = useTravelTab();
 
   return (
     <Card
@@ -28,9 +28,9 @@ const TravelCard = () => {
       }}
     >
       <Tabs
-        value={selectedTab}
+        value={tab}
         variant="fullWidth"
-        onChange={(_, tab) => setSelectedTab(tab)}
+        onChange={(_, value) => handleChangeTab(value)}
         sx={{
           width: "100%",
           "& .MuiTabs-indicator": {
@@ -54,19 +54,25 @@ const TravelCard = () => {
           icon={<DomesticFlight fontSize="large" />}
           color="secondary"
           label="پرواز داخلی"
+          value="پرواز داخلی"
         />
-        <Tab icon={<ForeignFlight fontSize="large" />} label="پرواز خارجی" />
-        <Tab icon={<Train fontSize="large" />} label="قطار" />
-        <Tab icon={<Bus fontSize="large" />} label="اتوبوس" />
-        <Tab icon={<Tour fontSize="large" />} label="تور" />
-        <Tab icon={<Hotel fontSize="large" />} label="هتل" />
+        <Tab
+          icon={<ForeignFlight fontSize="large" />}
+          label="پرواز خارجی"
+          value="پرواز خارجی"
+        />
+        <Tab icon={<Train fontSize="large" />} label="قطار" value="قطار" />
+        <Tab icon={<Bus fontSize="large" />} label="اتوبوس" value="اتوبوس" />
+        <Tab icon={<Tour fontSize="large" />} label="تور" value="تور" />
+        <Tab icon={<Hotel fontSize="large" />} label="هتل" value="هتل" />
         <Tab
           icon={<Accommodation fontSize="large" />}
           label="ویلا و اقامتگاه"
+          value="ویلا و اقامتگاه"
         />
       </Tabs>
       <Divider orientation="horizontal" />
-      <Typography variant="h3">{selectedTab}</Typography>
+      <Typography variant="h3">{tab}</Typography>
       <Typography variant="h3">این قسمت باید در آینده تکمیل شود</Typography>
     </Card>
   );
