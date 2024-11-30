@@ -11,6 +11,7 @@ import {
   Tour,
   Train,
 } from "./SVGIcons";
+import TravelsTable from "./TravelsTable";
 
 const TravelCard = () => {
   const { tab, handleChangeTab } = useTravelTab();
@@ -73,7 +74,6 @@ const TravelCard = () => {
       </Tabs>
       <Divider orientation="horizontal" />
       <Typography variant="h3">{tab}</Typography>
-      <Typography variant="h3">این قسمت باید در آینده تکمیل شود</Typography>
     </Card>
   );
 };

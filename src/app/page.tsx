@@ -1,10 +1,9 @@
-import { Card, Typography } from "@mui/material";
-import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Image from "next/image";
-import TravelCard from "./ui/TravelCard";
-import OtherServices from "./ui/OtherServices";
 import Carousel from "./ui/Carousel";
+import OtherServices from "./ui/OtherServices";
+import TravelCard from "./ui/TravelCard";
+import TravelsTable from "./ui/TravelsTable";
 
 export default function Home() {
   return (
@@ -17,6 +16,7 @@ export default function Home() {
         layout="responsive"
       />
       <TravelCard />
+      <TravelsTable />
       <OtherServices />
       <Carousel />
     </Container>
