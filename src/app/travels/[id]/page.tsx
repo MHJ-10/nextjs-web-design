@@ -1,13 +1,9 @@
-import { fetchTravelWithId } from "@/app/lib/data";
-import React from "react";
-
-interface Props {
-  params: { id: string };
-}
-
-const TravelPage = async ({ params }: Props) => {
+const TravelPage = async ({ params }: { params: { id: string } }) => {
   const travelId = +params.id;
-  const travel = await fetchTravelWithId(travelId);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/travels/${travelId}`
+  );
+  const { data: travel } = await res.json();
 
   return (
     <ul>

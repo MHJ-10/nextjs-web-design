@@ -27,7 +27,8 @@ const TravelsTableLayout = ({ travels }: { travels: Travel[] }) => {
       width: 200,
       headerAlign: "center",
       align: "center",
-      valueGetter: (value) => new Date(value).toLocaleDateString("fa-IR"),
+      renderCell: (params) =>
+        new Date(params.row.date).toLocaleDateString("fa-IR"),
     },
     {
       field: "price",
@@ -43,7 +44,7 @@ const TravelsTableLayout = ({ travels }: { travels: Travel[] }) => {
       headerAlign: "center",
       align: "center",
       renderCell: (params) => (
-        <Button sx={{ backgroundColor: "primary.main" }}>
+        <Button variant="contained" color="primary">
           <Link
             href={`/travels/${params.id}`}
             style={{ textDecoration: "none", color: "#000" }}
