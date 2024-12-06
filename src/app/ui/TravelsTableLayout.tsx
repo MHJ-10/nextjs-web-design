@@ -57,7 +57,7 @@ const TravelsTableLayout = ({ travels }: { travels: Travel[] }) => {
   ];
 
   return (
-    <Paper sx={{ height: 400 }}>
+    <Paper sx={{ height: 400, mt: 5 }}>
       <DataGrid
         columns={columns}
         rows={travels}
