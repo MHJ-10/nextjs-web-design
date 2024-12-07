@@ -40,6 +40,9 @@ const theme = createTheme({
       primary: "#4e5254",
       secondary: "#000000",
     },
+    info: {
+      main: "#236ead",
+    },
   },
   typography: {
     fontFamily: alibabaFont.style.fontFamily,
