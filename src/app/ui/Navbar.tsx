@@ -20,6 +20,7 @@ import {
 import Image from "next/image";
 import { ReactElement, useState } from "react";
 import { useTravelTab } from "../context/TravelTabContext";
+import Link from "next/link";
 
 interface LinkButton {
   text: string;
@@ -59,12 +60,15 @@ const Navbar = () => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
-          <Image
-            src="/images/logo.svg"
-            width={160}
-            height={50}
-            alt="alibaba logo"
-          />
+          <Link href="/">
+            <Image
+              src="/images/logo.svg"
+              width={160}
+              height={50}
+              alt="alibaba logo"
+            />
+          </Link>
+
           <Box sx={{ display: { xs: "none", lg: "flex" } }}>
             <NavbarLinks />
           </Box>
