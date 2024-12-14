@@ -1,4 +1,4 @@
-import { sql } from "@vercel/postgres";
+import { db } from "@vercel/postgres";
 
 export type Travel = {
   id: number;
@@ -9,8 +9,9 @@ export type Travel = {
 };
 
 export async function fetchTravels() {
+  const client = await db.connect();
   try {
-    const data = await sql<Travel>`SELECT * FROM travels`;
+    const data = await client.sql<Travel>`SELECT * FROM travels`;
     return data.rows;
   } catch (error) {
     throw new Error("Failed to fetch revenue data.");
@@ -18,8 +19,9 @@ export async function fetchTravels() {
 }
 
 export async function fetchTravelById(id: string) {
+  const client = await db.connect();
   try {
-    const data = await sql<Travel>`SELECT * FROM travels 
+    const data = await client.sql<Travel>`SELECT * FROM travels 
     WHERE id=${id}`;
 
     return data.rows[0];
