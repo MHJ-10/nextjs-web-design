@@ -12,15 +12,15 @@ import { QuestionsAccordion } from "./ui/QuestionsAccordion";
 export default function Home() {
   return (
     <>
+      <Image
+        style={{ marginTop: 10 }}
+        src="/images/banner.jpg"
+        alt="alibaba-banner"
+        width={300}
+        height={300}
+        layout="responsive"
+      />
       <Container maxWidth="lg" dir="rtl">
-        <Image
-          style={{ marginTop: 10 }}
-          src="/images/banner.jpg"
-          alt="alibaba-banner"
-          width={300}
-          height={300}
-          layout="responsive"
-        />
         <TravelCard />
         <Button
           sx={{
