@@ -1,9 +1,9 @@
 "use client";
 
-import { Box, Button, MobileStepper } from "@mui/material";
+import { Box, MobileStepper } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import alibabaImg from "../../../public/images/carousel/alibaba-hotel.jpg";
 import dadHotelImg from "../../../public/images/carousel/dad-hotel.jpg";
 import safarCardImg from "../../../public/images/carousel/safar-card.png";
@@ -13,17 +13,26 @@ const carouselImages = [safarCardImg, dadHotelImg, alibabaImg, tripCardImg];
 
 const Carousel = () => {
   const [number, setNumber] = useState<number>(0);
+  const stepperRef = useRef<HTMLDivElement>(null);
+
   const firstIndex = number;
   const secondIndex = (number + 1) % carouselImages.length;
 
-  const onNext = () => {
-    setNumber((prev) => (prev + 1) % carouselImages.length);
-  };
-
-  const onPrev = () => {
-    setNumber(
-      (prev) => (prev - 1 + carouselImages.length) % carouselImages.length
+  useEffect(() => {
+    const interval = setInterval(
+      () => setNumber((prev) => (prev + 1) % carouselImages.length),
+      5000
     );
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const onDotClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const stepper = stepperRef.current;
+    const dots = stepper?.querySelector("div")?.querySelectorAll("div");
+    dots?.forEach((dot, i) => {
+      if (dot === e.target) setNumber(i);
+    });
   };
 
   return (
@@ -45,13 +54,14 @@ const Carousel = () => {
         </Grid>
       </Grid>
       <MobileStepper
+        ref={stepperRef}
         variant="dots"
         steps={carouselImages.length}
         activeStep={number}
         position="static"
-        onClick={(e) => console.log(e)}
-        backButton={<Button onClick={onPrev}>Back</Button>}
-        nextButton={<Button onClick={onNext}>Next</Button>}
+        onClick={onDotClick}
+        backButton={<p></p>}
+        nextButton={<p></p>}
       />
     </Box>
   );
