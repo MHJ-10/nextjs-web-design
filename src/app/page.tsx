@@ -7,6 +7,7 @@ import DownloadAppCard from "./ui/DownloadAppCard";
 import OtherServices from "./ui/OtherServices";
 import TravelCard from "./ui/TravelCard";
 import TravelsTable from "./ui/TravelsTable";
+import { QuestionsAccordion } from "./ui/QuestionsAccordion";
 
 export default function Home() {
   return (
@@ -42,6 +43,7 @@ export default function Home() {
         <OtherServices />
         <Carousel />
         <DownloadAppCard />
+        <QuestionsAccordion />
       </Container>
     </>
   );
