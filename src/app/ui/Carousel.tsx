@@ -38,14 +38,14 @@ const Carousel = () => {
   return (
     <Box>
       <Grid container spacing={2}>
-        <Grid size={{ xs: 6 }}>
+        <Grid size={{ xs: 12, sm: 6 }} height={{ xs: 200, sm: 255 }}>
           <Image
             src={carouselImages[firstIndex]}
             alt="carousel image"
             layout="responsive"
           />
         </Grid>
-        <Grid size={{ xs: 6 }}>
+        <Grid size={{ xs: 12, sm: 6 }} height={{ xs: 200, sm: 255 }}>
           <Image
             src={carouselImages[secondIndex]}
             alt="carousel image"
